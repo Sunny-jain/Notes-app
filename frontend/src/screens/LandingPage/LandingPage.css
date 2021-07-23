@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Otomanopee+One&display=swap");
+
+.main {
+  min-height: 93vh;
+  display: flex;
+  align-items: center;
+  background-image: url(../../background1.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+.title {
+  font-family: "Otomanopee One", sans-serif;
+  font-size: 50px;
+}
+
+.subtitle {
+  font-family: "Dancing Script", cursive;
+  padding-top: 10px;
+  font-size: 35px;
+  font-weight: 500;
+}
+
+.intro-text {
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
+  text-align: center;
+}
+
+.buttonContainer {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.landingButton {
+  width: 200px;
+  height: 55px;
+}
+
+@media only screen and (min-width: 1200px) {
+  .buttonContainer {
+    padding: 0 200px;
+  }
+  .title {
+    padding: 0 100px;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .title {
+    font-size: 30px;
+  }
+  .subtitle {
+    font-size: 25px;
+  }
+  .landingButton {
+    width: 150px;
+    height: 50px;
+  }
+}
+
+@media only screen and (min-width: 750px) and (max-width: 1400px) {
+  .title {
+    font-size: 40px;
+  }
+}
