@@ -3,10 +3,15 @@ const express = require("express");
 const dotenv = require("dotenv");
 const notes = require("./data/notes");
 const dbConnect = require("./config/db");
+const userRoutes = require("./routes/userRoutes");
+const { notFound, errorHandler } = require("./middlewares/errorMiddlewares");
 
 const app = express();
 dotenv.config();
 dbConnect();
+app.use(express.json());
+
+app.use('/api/users', userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Api is running");
@@ -16,10 +21,9 @@ app.get("/api/notes", (req, res) => {
   res.json(notes);
 });
 
-app.get("/api/notes/:id", (req, res) => {
-  const note = notes.filter((n) => n._id === req.params.id);
-  res.send(note);
-});
+// error handling
+app.use(notFound)
+app.use(errorHandler);
 
 const PORT = 5000;
 
