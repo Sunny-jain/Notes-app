@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./LandingPage.css";
 
-const LandingPage = () => {
+const LandingPage = ({ history }) => {
+  // useEffect(() => {
+  //   const userInfo = localStorage.getItem("userInfo");
+
+  //   if (userInfo) {
+  //     history.push("/mynotes");
+  //   }
+  // }, [history]);
+
   return (
     <div className="main">
       <Container>
@@ -14,10 +23,14 @@ const LandingPage = () => {
             </div>
             <div className="buttonContainer">
               <Button size="lg" className="landingButton">
-                Login
+                <Link to="/login">Login</Link>
               </Button>
-              <Button size="lg" className="landingButton" variant = "outline-primary">
-                Register
+              <Button
+                size="lg"
+                className="landingButton"
+                variant="outline-primary"
+              >
+                <Link to="/register">Register</Link>
               </Button>
             </div>
           </div>
