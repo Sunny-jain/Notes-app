@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ErrorMessage from "../../components/error/ErrorMessage";
 import MainScreen from "../../components/MainScreen/MainScreen";
-import axios from "axios";
 import Loading from "../../components/Loading/Loading ";
-
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../redux/actions/userActions";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -17,36 +17,29 @@ const RegisterPage = () => {
   const [confirmpassword, setConfirmpassword] = useState("");
   const [message, setMessage] = useState(null);
   const [picMessage, setPicMessage] = useState(null);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const userRegister = useSelector((state) => state.userRegister);
+
+  const { loading, error, userInfo } = userRegister;
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mynotes");
+    }
+  }, [history, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (password !== confirmpassword) {
-      setMessage("Password Do Not Match");
-    } else {
-      setMessage(null);
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
 
-        setLoading(true);
-        const { data } = await axios.post(
-          "/api/users",
-          { name, email, password, pic },
-          config
-        );
-        setLoading(false);
-        setError(false);
-
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (error) {
-        setError(error.response.data.message);
-        setLoading(false);
-      }
+    if(password !== confirmpassword){
+      setMessage("Password do not match");
+    }
+    else{
+      dispatch(register(name, email, password, pic));
     }
   };
 
@@ -103,7 +96,7 @@ const RegisterPage = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
-          <Form.Group contolId="formBasicPassword">
+          <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"

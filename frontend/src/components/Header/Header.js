@@ -7,10 +7,25 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { logout } from "../../redux/actions/userActions";
+
+
 
 const Header = () => {
   const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    history.push("/");
+  };
+
   return (
     <div>
       <Navbar bg="primary" expand="lg" variant="dark">
@@ -37,12 +52,7 @@ const Header = () => {
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item
-                  onClick={() => {
-                    localStorage.removeItem("userInfo");
-                    history.push("/");
-                  }}
-                >
+                <NavDropdown.Item onClick={logoutHandler}>
                   <i className="fa fa-sign-out"></i>
                   Logout
                 </NavDropdown.Item>
