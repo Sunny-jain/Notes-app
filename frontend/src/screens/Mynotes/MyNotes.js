@@ -1,38 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import MainScreen from "../../components/MainScreen/MainScreen";
 import "./MyNotes.css";
-import axios from 'axios';
+import { listNotes } from "../../redux/actions/notesActions";
+import ErrorMessage from "../../components/error/ErrorMessage";
+import Loading from "../../components/Loading/Loading ";
 
 const MyNotes = () => {
-  const [notes, setNotes] = useState([])
+  const dispatch = useDispatch();
+  const noteList = useSelector((state) => state.noteList);
+  const userLogin = useSelector((state) => state.userLogin);
+
+  const { userInfo } = userLogin;
+  const { loading, notes, error } = noteList;
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
     }
   };
 
-  const fetchNotes = async () => {
-    
-    const { data } = await axios.get('/api/notes');
-
-    setNotes(data);
-  }
-
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    dispatch(listNotes());
+  }, [dispatch]);
 
   return (
-    <MainScreen title="Welcome back Sunny jain">
+    <MainScreen title={`Welcome back ${userInfo.name}..`}>
       <Link to="/createnote">
         <Button className="new" size="lg">
           Create New Note
         </Button>
       </Link>
-      {notes.map((note) => (
-        <Accordion key = {note._id}>
+      {loading && <Loading />}
+      {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+      {notes?.map((note) => (
+        <Accordion key={note._id}>
           <Card>
             <Card.Header>
               <span>
@@ -58,7 +61,12 @@ const MyNotes = () => {
               <Card.Body>
                 <Badge variant="success">Category - {note.category}</Badge>
                 <p>{note.content}</p>
-                <footer className="blockquote-footer">Created On - date</footer>
+                <footer className="blockquote-footer">
+                  Created On{" "}
+                  <cite title="Source Title">
+                    {note.createdAt.substring(0, 10)}
+                  </cite>
+                </footer>
               </Card.Body>
             </Accordion.Collapse>
           </Card>
