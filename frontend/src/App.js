@@ -7,6 +7,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import MyNotes from "./screens/Mynotes/MyNotes";
 import LoginPage from "./screens/LoginPage/LoginPage";
 import RegisterPage from "./screens/RegisterPage/RegisterPage";
+import CreateNote from "./screens/CreateNote/CreateNote";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route exact path="/mynotes" component={() => <MyNotes />} />
         <Route exact path="/login" component={() => <LoginPage />} />
         <Route exact path="/register" component={() => <RegisterPage />} />
+        <Route exact path = '/createnote' component = {() => <CreateNote />} />
       </main>
       <Footer />
     </BrowserRouter>
