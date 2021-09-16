@@ -12,10 +12,8 @@ const noteRoutes = express.Router();
 
 noteRoutes.route("/").get(protect, getNotes);
 noteRoutes.route("/create").post(protect, createNote);
-noteRoutes
-  .route("/:id")
-  .get(getNoteById)
-  .put(protect, updateNote)
-  .delete(protect, deleteNote);
+noteRoutes.route("/:id").get(getNoteById);
+noteRoutes.route("/:id").put(protect, updateNote);
+noteRoutes.route("/:id").delete(protect, deleteNote);
 
 module.exports = noteRoutes;
