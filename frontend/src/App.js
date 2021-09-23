@@ -9,6 +9,7 @@ import LoginPage from "./screens/LoginPage/LoginPage";
 import RegisterPage from "./screens/RegisterPage/RegisterPage";
 import CreateNote from "./screens/CreateNote/CreateNote";
 import SingleNote from "./screens/SingleNote/SingleNote";
+import Profile from "./screens/Profile/Profile";
 
 const App = () => {
   const [search, setSearch] = useState("");
@@ -31,6 +32,7 @@ const App = () => {
         <Route exact path="/register" component={() => <RegisterPage />} />
         <Route exact path="/createnote" component={() => <CreateNote />} />
         <Route exact path="/note/:id" component={() => <SingleNote />} />
+        <Route exact path="/profile" component={() => <Profile />} />
       </main>
       <Footer />
     </BrowserRouter>

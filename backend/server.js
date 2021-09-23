@@ -12,8 +12,8 @@ dotenv.config();
 dbConnect();
 app.use(express.json());
 
-app.use('/api/users', userRoutes);
-app.use('/api/notes', noteRoutes)
+app.use("/api/users", userRoutes);
+app.use("/api/notes", noteRoutes);
 
 // app.get("/", (req, res) => {
 //   res.send("Api is running");
@@ -24,7 +24,7 @@ app.use('/api/notes', noteRoutes)
 // });
 
 // error handling
-app.use(notFound)
+app.use(notFound);
 app.use(errorHandler);
 
 const PORT = 5000;
